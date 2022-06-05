@@ -32,7 +32,6 @@ class HomeView extends StatelessWidget {
                       onSubmit: (word) =>
                           context.read<HomeBloc>().add(SearchBlog(word)),
                     ),
-                    //title:
                   ),
                   if (state is HomeLoading)
                     const SliverPadding(

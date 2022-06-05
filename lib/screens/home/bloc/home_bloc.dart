@@ -10,7 +10,7 @@ part 'home_event.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final BlogRepository _blogRepository = BlogRepository(ApiService());
-  late List<Blog> _allBlogs;
+  late List<Blog> _allBlogs; // store data fetched from API
 
   HomeBloc() : super(HomeLoading()) {
     on<LoadBlogs>(_onLoadBlogs);
@@ -33,6 +33,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } else {
       emit(HomeLoading());
 
+      // add delay to show loading state
       final searchResult = await Future.delayed(
         const Duration(seconds: 1),
         () => _allBlogs
