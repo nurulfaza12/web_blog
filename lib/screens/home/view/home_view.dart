@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_blog/screens/home/bloc/home_bloc.dart';
+import 'package:web_blog/screens/home/view/widgets/blog_card.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -23,12 +24,7 @@ class HomeView extends StatelessWidget {
                   return SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
-                        return Container(
-                          height: 200.0,
-                          child: Text(
-                            state.blogs[index].title,
-                          ),
-                        );
+                        return BlogCard(blog: state.blogs[index]);
                       },
                       childCount: 10,
                     ),
