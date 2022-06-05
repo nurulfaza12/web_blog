@@ -12,7 +12,6 @@ class BlogCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      /// TODO: add args
       onTap: () => Navigator.of(context).pushNamed(
         Constant.detailPath,
         arguments: DetailArgument(blog),

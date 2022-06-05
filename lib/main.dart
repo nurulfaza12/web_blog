@@ -43,19 +43,15 @@ class MyApp extends StatelessWidget {
           builder: (context) {
             if (settings.name == Constant.detailPath) {
               final args = settings.arguments as DetailArgument;
-              return DetailView(argument: args);
+              return SafeArea(child: DetailView(argument: args));
             }
             return BlocProvider<HomeBloc>(
               create: (_) => HomeBloc()..add(const LoadBlogs()),
-              child: const HomeView(),
+              child: SafeArea(child: const HomeView()),
             );
           },
         );
       },
-      home: BlocProvider<HomeBloc>(
-        create: (_) => HomeBloc()..add(const LoadBlogs()),
-        child: const HomeView(),
-      ),
     );
   }
 }

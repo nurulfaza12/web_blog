@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_blog/screens/home/bloc/home_bloc.dart';
 import 'package:web_blog/screens/home/view/widgets/blog_card.dart';
-import 'package:web_blog/screens/home/view/widgets/empty_error_state.dart';
+import 'package:web_blog/screens/home/view/widgets/error_state.dart';
+import 'package:web_blog/screens/home/view/widgets/empty_state.dart';
 import 'package:web_blog/screens/home/view/widgets/search_bar.dart';
 
 class HomeView extends StatelessWidget {
@@ -14,7 +15,8 @@ class HomeView extends StatelessWidget {
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           if (state is HomeFailure) {
-            return const EmptyErrorState(text: 'Something is wrong...',);
+            return ErrorState(
+                onPressed: () => context.read<HomeBloc>().add(const LoadBlogs()));
           } else {
             return CustomScrollView(
               shrinkWrap: true,
@@ -45,7 +47,7 @@ class HomeView extends StatelessWidget {
                   )
                 else
                   const SliverToBoxAdapter(
-                    child: const EmptyErrorState(text: 'Sorry, the item is not found'),
+                    child: EmptyState(),
                   )
               ],
             );
