@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:web_blog/palette.dart';
+import 'package:web_blog/utils/palette.dart';
 
 class SearchBar extends StatefulWidget {
   const SearchBar({

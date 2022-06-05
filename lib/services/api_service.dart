@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:web_blog/constants.dart';
+import 'package:web_blog/utils/constants.dart';
 
 class ApiService {
   Future<http.Response> get({

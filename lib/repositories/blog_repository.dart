@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:web_blog/constants.dart';
+import 'package:web_blog/utils/constants.dart';
 import 'package:web_blog/services/api_service.dart';
 
 import '../models/blog.dart';
