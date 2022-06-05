@@ -21,7 +21,7 @@ class ErrorState extends StatelessWidget {
             ),
             TextButton(
               onPressed: () => onPressed(),
-              child: Text('Retry'),
+              child: const Text('Retry'),
             ),
           ],
         ),

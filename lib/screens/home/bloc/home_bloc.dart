@@ -34,11 +34,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       return emit(HomeLoaded(blogs: _allBlogs));
     }
     if (currentState is HomeLoaded) {
-      final searchResult = _allBlogs
-          .where((blog) => blog.title.contains(event.word))
-          .toList();
+      emit(HomeLoading());
 
-      Future.delayed(Duration(seconds: 1));
+      final searchResult = await Future.delayed(
+        const Duration(seconds: 1),
+        () => _allBlogs
+            .where((blog) => blog.title.contains(event.word.toLowerCase()))
+            .toList(),
+      );
 
       if (searchResult.isNotEmpty) {
         return emit(currentState.copyWith(blogs: searchResult));

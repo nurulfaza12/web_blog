@@ -12,47 +12,53 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          if (state is HomeFailure) {
-            return ErrorState(
-                onPressed: () => context.read<HomeBloc>().add(const LoadBlogs()));
-          } else {
-            return CustomScrollView(
-              shrinkWrap: true,
-              slivers: [
-                SliverAppBar(
-                  pinned: true,
-                  automaticallyImplyLeading: false,
-                  flexibleSpace: SearchBar(
-                    onClear: () =>
-                        context.read<HomeBloc>().add(const SearchBlog('')),
-                    onSubmit: (word) =>
-                        context.read<HomeBloc>().add(SearchBlog(word)),
-                  ),
-                  //title:
-                ),
-                if (state is HomeLoading)
-                  const SliverToBoxAdapter(
-                    child: Center(child: CircularProgressIndicator()),
-                  )
-                else if (state is HomeLoaded)
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return BlogCard(blog: state.blogs[index]);
-                      },
-                      childCount: state.blogs.length,
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            if (state is HomeFailure) {
+              return ErrorState(
+                  onPressed: () => context.read<HomeBloc>().add(const LoadBlogs()));
+            } else {
+              return CustomScrollView(
+                shrinkWrap: true,
+                slivers: [
+                  SliverAppBar(
+                    pinned: true,
+                    automaticallyImplyLeading: false,
+                    flexibleSpace: SearchBar(
+                      onClear: () =>
+                          context.read<HomeBloc>().add(const SearchBlog('')),
+                      onSubmit: (word) =>
+                          context.read<HomeBloc>().add(SearchBlog(word)),
                     ),
-                  )
-                else
-                  const SliverToBoxAdapter(
-                    child: EmptyState(),
-                  )
-              ],
-            );
-          }
-        },
+                    //title:
+                  ),
+                  if (state is HomeLoading)
+                    const SliverPadding(
+                      padding: EdgeInsets.all(30.0),
+                      sliver: SliverToBoxAdapter(
+                        child: Center(child: CircularProgressIndicator()),
+                      ),
+                    )
+                  else if (state is HomeLoaded)
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          return BlogCard(blog: state.blogs[index]);
+                        },
+                        childCount: state.blogs.length,
+                      ),
+                    )
+                  else
+                    const SliverToBoxAdapter(
+                      child: EmptyState(),
+                    )
+                ],
+              );
+            }
+          },
+        ),
       ),
     );
   }

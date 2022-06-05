@@ -16,12 +16,13 @@ class DetailView extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            pinned: true,
             leading: IconButton(
               onPressed: () => Navigator.of(context).pop(),
               iconSize: 18.0,
               splashRadius: 18.0,
-              icon: Icon(Icons.arrow_back_ios_new_rounded,
-                  size: 18.0, color: Palette.text),
+              icon: const Icon(Icons.arrow_back_ios_new_rounded,
+                  size: 18.0, color: Palette.dark),
             ),
           ),
           SliverToBoxAdapter(

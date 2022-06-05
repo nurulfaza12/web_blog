@@ -6,6 +6,7 @@ import 'package:web_blog/screens/detail/detail_argument.dart';
 import 'package:web_blog/screens/detail/detail_view.dart';
 import 'package:web_blog/screens/home/bloc/home_bloc.dart';
 import 'package:web_blog/screens/home/view/home_view.dart';
+import 'package:web_blog/utils/palette.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Palette.blue,
         textTheme: GoogleFonts.montserratTextTheme(),
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
             }
             return BlocProvider<HomeBloc>(
               create: (_) => HomeBloc()..add(const LoadBlogs()),
-              child: SafeArea(child: const HomeView()),
+              child: const SafeArea(child: HomeView()),
             );
           },
         );

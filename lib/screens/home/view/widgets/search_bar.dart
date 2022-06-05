@@ -16,13 +16,20 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-  final _controller = TextEditingController();
+  late final TextEditingController _controller;
   var _isTextEmpty = true;
 
   @override
   void initState() {
     super.initState();
+    _controller = TextEditingController();
     _controller.addListener(_handleTextChange);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   void _handleTextChange() {
@@ -40,8 +47,8 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
-      margin: const EdgeInsets.all(10.0),
+      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      height: 54.0,
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
         borderRadius: BorderRadius.circular(5.0),
@@ -54,12 +61,15 @@ class _SearchBarState extends State<SearchBar> {
       ),
       child: TextField(
         controller: _controller,
+        autofocus: false,
+        cursorHeight: 18.0,
         textAlignVertical: TextAlignVertical.top,
         style: Theme.of(context)
             .textTheme
             .labelLarge
-            ?.copyWith(color: Palette.text),
+            ?.copyWith(fontSize: 15.0, color: Palette.dark),
         decoration: InputDecoration(
+          contentPadding: const EdgeInsets.all(16.0),
           border: InputBorder.none,
           prefixIcon: const Icon(
             Icons.search_rounded,
