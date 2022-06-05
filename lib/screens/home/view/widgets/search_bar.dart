@@ -63,11 +63,7 @@ class _SearchBarState extends State<SearchBar> {
         controller: _controller,
         autofocus: false,
         cursorHeight: 18.0,
-        textAlignVertical: TextAlignVertical.top,
-        style: Theme.of(context)
-            .textTheme
-            .labelLarge
-            ?.copyWith(fontSize: 15.0, color: Palette.dark),
+        textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(16.0),
           border: InputBorder.none,
@@ -78,6 +74,7 @@ class _SearchBarState extends State<SearchBar> {
           hintText: 'Search',
           hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
                 color: Colors.grey,
+                fontSize: 15.0,
               ),
           suffixIcon: (_isTextEmpty)
               ? const SizedBox()
