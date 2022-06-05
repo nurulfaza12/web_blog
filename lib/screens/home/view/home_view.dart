@@ -14,14 +14,13 @@ class HomeView extends StatelessWidget {
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           if (state is HomeFailure) {
-            return EmptyErrorState(text: 'Something is wrong...',);
+            return const EmptyErrorState(text: 'Something is wrong...',);
           } else {
             return CustomScrollView(
               shrinkWrap: true,
               slivers: [
                 SliverAppBar(
                   pinned: true,
-                  toolbarHeight: 70.0,
                   automaticallyImplyLeading: false,
                   flexibleSpace: SearchBar(
                     onClear: () =>
@@ -32,7 +31,7 @@ class HomeView extends StatelessWidget {
                   //title:
                 ),
                 if (state is HomeLoading)
-                  SliverToBoxAdapter(
+                  const SliverToBoxAdapter(
                     child: Center(child: CircularProgressIndicator()),
                   )
                 else if (state is HomeLoaded)
@@ -45,8 +44,8 @@ class HomeView extends StatelessWidget {
                     ),
                   )
                 else
-                  SliverToBoxAdapter(
-                    child: EmptyErrorState(text: 'Sorry, the item is not found'),
+                  const SliverToBoxAdapter(
+                    child: const EmptyErrorState(text: 'Sorry, the item is not found'),
                   )
               ],
             );

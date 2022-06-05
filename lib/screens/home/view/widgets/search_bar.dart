@@ -40,18 +40,16 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50.0,
-      width: 400.0,
-      padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
-      margin: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
+      margin: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.grey.shade200,
         borderRadius: BorderRadius.circular(5.0),
         boxShadow: [
           BoxShadow(
               color: Colors.grey.shade200,
               blurRadius: 3.0,
-              offset: Offset(0.0, 2.0))
+              offset: const Offset(0.0, 2.0))
         ],
       ),
       child: TextField(
@@ -63,23 +61,25 @@ class _SearchBarState extends State<SearchBar> {
             ?.copyWith(color: Palette.text),
         decoration: InputDecoration(
           border: InputBorder.none,
-          prefixIcon: Padding(
-              padding: EdgeInsets.symmetric(vertical: 5.0),
-              child: Icon(Icons.search_rounded)),
+          prefixIcon: const Icon(
+            Icons.search_rounded,
+            size: 18.0,
+          ),
           hintText: 'Search',
           hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
                 color: Colors.grey,
               ),
           suffixIcon: (_isTextEmpty)
-              ? SizedBox()
-              : Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5.0),
-                  child: IconButton(
-                      icon: Icon(Icons.close_rounded),
-                      onPressed: () {
-                        _controller.clear();
-                        widget.onClear();
-                      })),
+              ? const SizedBox()
+              : IconButton(
+                  icon: const Icon(
+                    Icons.close_rounded,
+                    size: 18.0,
+                  ),
+                  onPressed: () {
+                    _controller.clear();
+                    widget.onClear();
+                  }),
         ),
         onSubmitted: (word) {
           widget.onSubmit(word);
