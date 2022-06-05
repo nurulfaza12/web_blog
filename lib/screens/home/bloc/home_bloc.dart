@@ -28,12 +28,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   Future<void> _onSearchBlog(SearchBlog event, Emitter<HomeState> emit) async {
-    final currentState = state;
-
     if (event.word.isEmpty) {
       return emit(HomeLoaded(blogs: _allBlogs));
-    }
-    if (currentState is HomeLoaded) {
+    } else {
       emit(HomeLoading());
 
       final searchResult = await Future.delayed(
@@ -44,7 +41,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       );
 
       if (searchResult.isNotEmpty) {
-        return emit(currentState.copyWith(blogs: searchResult));
+        return emit(HomeLoaded(blogs: searchResult));
       } else {
         return emit(HomeEmpty());
       }
