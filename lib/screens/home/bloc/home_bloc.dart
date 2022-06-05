@@ -10,18 +10,41 @@ part 'home_event.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final BlogRepository _blogRepository = BlogRepository(ApiService());
+  late List<Blog> _allBlogs;
 
   HomeBloc() : super(HomeLoading()) {
     on<LoadBlogs>(_onLoadBlogs);
+    on<SearchBlog>(_onSearchBlog);
   }
 
   Future<void> _onLoadBlogs(LoadBlogs event, Emitter<HomeState> emit) async {
     try {
       final blogs = await _blogRepository.getBlogs();
+      _allBlogs = blogs;
       return emit(HomeLoaded(blogs: blogs));
     } catch (e) {
       return emit(HomeFailure(error: e.toString()));
     }
   }
 
+  Future<void> _onSearchBlog(SearchBlog event, Emitter<HomeState> emit) async {
+    final currentState = state;
+
+    if (event.word.isEmpty) {
+      return emit(HomeLoaded(blogs: _allBlogs));
+    }
+    if (currentState is HomeLoaded) {
+      final searchResult = _allBlogs
+          .where((blog) => blog.title.contains(event.word))
+          .toList();
+
+      Future.delayed(Duration(seconds: 1));
+
+      if (searchResult.isNotEmpty) {
+        return emit(currentState.copyWith(blogs: searchResult));
+      } else {
+        return emit(HomeEmpty());
+      }
+    }
+  }
 }
